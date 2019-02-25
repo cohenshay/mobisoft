@@ -39,21 +39,21 @@ const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 // Static files
 app.use(express.static(CLIENT_BUILD_PATH));
 
-// const client = mongodb.MongoClient;
+const client = mongodb.MongoClient;
 
-// client.connect(dbConfig.DB, function(err, db) {
-//     if(err) {
-//         console.log('database is not connected',err)
-//     }
-//     else {
-//         console.log('connected!!')
-//     }
-// });
-// const redisClient = require('./redis-client');
+client.connect(dbConfig.DB, function(err, db) {
+    if(err) {
+        console.log('database is not connected',err)
+    }
+    else {
+        console.log('connected!!')
+    }
+});
+const redisClient = require('./redis-client');
 //routes
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
-app.post('/register', (req, res) => {
+app.post('/register',jwtAuthenticator, (req, res) => {
   // A user registers with a mobile phone number
   let phoneNumber = req.body.number;
   console.log(phoneNumber);

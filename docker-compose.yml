@@ -1,0 +1,41 @@
+version: '2'
+services:
+  server:
+    build:
+      context: ./server/
+    command: /usr/app/node_modules/.bin/nodemon src/index.js
+    container_name: mobisoft-server
+    volumes:
+      - ./server/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "8080:8080"
+    links:
+      - mongo  
+      - redis
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_URL=redis://cache
+  client:
+    build:
+      context: ./client/
+    command: npm start
+    container_name: mobisoft-client
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379

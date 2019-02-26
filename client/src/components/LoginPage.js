@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signin } from '../actions/auth';
+import { login } from '../actions/auth';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
@@ -10,15 +10,16 @@ class LoginPage extends React.Component {
     this.state = {
       email: "",
       password: "",
+      phone: "",
       authError: ""
     }
   }
   checkResponse = (response) => {
-    if (response.data.success == "success" && response.data.token) {
-      this.props.history.push("/");
+    if (response.data.status == "success") {
+      this.props.history.push("/verify");
     }
     else {
-      this.setState({ authError: response })
+      this.setState({ authError: response.message })
     }
   }
   render() {
@@ -36,7 +37,13 @@ class LoginPage extends React.Component {
                   <label htmlFor="password">Password</label>
                   <input type="password" className="form-control" id="password" onChange={(e) => { this.setState({ password: e.target.value }) }} placeholder="Enter Password" />
                 </div>
-                <button type="button" onClick={() => { this.props.signin({ email: this.state.email, password: this.state.password }, this.checkResponse) }} className="btn btn-primary">Submit</button>
+                <div className="form-group">
+                  <label htmlFor="password">Phone</label>
+                  <input type="text" className="form-control" id="phone" onChange={(e) => { this.setState({ phone: e.target.value }) }} placeholder="Enter phone" />
+                </div>
+                <button type="button" onClick={() => { this.props.login({ email: this.state.email,
+                                                                          password: this.state.password,
+                                                                          phone:this.state.phone }, this.checkResponse) }} className="btn btn-primary">Submit</button>
               </form>
               {this.state.authError && <div className="login-error">{`Login Error, status: ${this.state.authError.status}, message: ${this.state.authError.statusText}`}</div>}
             </div>
@@ -50,7 +57,7 @@ class LoginPage extends React.Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  signin: (params, callback) => dispatch(signin(params, callback))
+  login: (params, callback) => dispatch(login(params, callback))
 });
 
 export default connect(undefined, mapDispatchToProps)(LoginPage);

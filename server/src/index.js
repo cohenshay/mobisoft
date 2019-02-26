@@ -7,11 +7,6 @@ const dbConfig = require('./config/db');
 const twoFactorAuthConfig = require("./config/2fa.json");
 const jwtAuthenticator = require('./helpers/jwtAuthenticator');
 const cookieParser = require('cookie-parser');
-const Nexmo = require('nexmo');
-const nexmo = new Nexmo({
-  apiKey: twoFactorAuthConfig.apiKey,
-  apiSecret: twoFactorAuthConfig.apiSecret
-});
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({
@@ -53,41 +48,8 @@ const redisClient = require('./redis-client');
 //routes
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
-app.post('/register',jwtAuthenticator, (req, res) => {
-  // A user registers with a mobile phone number
-  let phoneNumber = req.body.number;
-  console.log(phoneNumber);
-  nexmo.verify.request({number: phoneNumber, brand: 'NexmoVerifyTest'}, (err, 
-  result) => {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      let requestId = result.request_id;
-      if(result.status == '0') {
-        res.render('verify', {requestId: requestId}); // Success! Now, have your user enter the PIN
-      } else {
-        res.status(401).send(result.error_text);
-      }
-    }
-  });
-});
-app.post('/verify', (req, res) => {
-  let pin = req.body.pin;
-  let requestId = req.body.requestId;
- 
-  nexmo.verify.check({request_id: requestId, code: pin}, (err, result) => {
-    if(err) {
-      // handle the error
-    } else {
-      if(result && result.status == '0') { // Success!
-        res.status(200).send('Account verified!');
-        res.render('status', {message: 'Account verified! 🎉'});
-      } else {
-        // handle the error - e.g. wrong PIN
-      }
-    }
-  });
-});
+
+
 app.get('/store/:key', async (req, res) => {
   const { key } = req.params;
   const value = req.query;

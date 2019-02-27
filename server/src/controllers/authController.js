@@ -7,8 +7,10 @@ const passwordHash = require('password-hash');
 const Nexmo = require('nexmo');
 
 mongoose.connect(
-    dbConfig.DB
+    dbConfig.DB,
+    { useMongoClient: true }
 );
+console.log('Connected to Mongo...')
 
 const nexmo = new Nexmo({
     apiKey: twoFactorAuthConfig.apiKey,

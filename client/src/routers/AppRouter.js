@@ -7,7 +7,7 @@ import Main from '../components/Main/Main';
 import NavBar from "../components/General/NavBar";
 import SignIn from "../components/SignIn";
 import Verify from "../components/Verify";
-import Orders from "../components/Orders";
+import Products from "../components/Products/Products";
 
 export const history = createHistory();
 
@@ -22,7 +22,7 @@ const AppRouter = () => (
           <Route path="/login" component={LoginPage} />
           <Route path="/sign" component={SignIn} />
           <Route path="/verify" component={Verify} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/products" component={Products} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

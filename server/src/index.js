@@ -2,12 +2,10 @@
 
 const express = require('express');
 const path = require('path');
-const mongodb = require('mongodb');
-const dbConfig = require('./config/db');
-const twoFactorAuthConfig = require("./config/2fa.json");
 const jwtAuthenticator = require('./helpers/jwtAuthenticator');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
 const app = express();
 app.use(bodyParser.urlencoded({
   extended: true
@@ -24,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
@@ -34,35 +33,12 @@ const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 // Static files
 app.use(express.static(CLIENT_BUILD_PATH));
 
-const client = mongodb.MongoClient;
 
-client.connect(dbConfig.DB, function(err, db) {
-    if(err) {
-        console.log('database is not connected',err)
-    }
-    else {
-        console.log('connected!!')
-    }
-});
-const redisClient = require('./redis-client');
 //routes
 const authRouter = require('./routes/auth');
+const productsRouter = require('./routes/redis');
 app.use('/auth', authRouter);
-
-
-app.get('/store/:key', async (req, res) => {
-  const { key } = req.params;
-  const value = req.query;
-  await redisClient.setAsync(key, JSON.stringify(value));
-  return res.send('Success');
-});
-
-app.get('/getKey/:key', async (req, res) => {
-  const { key } = req.params;
-  const rawData = await redisClient.getAsync(key);
-  return res.json(JSON.parse(rawData));
-});
-
+app.use('/api/products', productsRouter);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {

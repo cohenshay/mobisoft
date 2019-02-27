@@ -12,7 +12,7 @@ class Verify extends React.Component {
     }
     checkResponse = (response) => {
         if (response.data.success == "verified" && response.data.token) {
-            this.props.history.push("/orders");
+            this.props.history.push("/products");
         }       
         else {
             this.setState({ authError: response })
@@ -22,12 +22,13 @@ class Verify extends React.Component {
         this.props.verify({ pin: this.state.pin, 'requestId': this.props.requestId, user: this.props.currentUser },this.checkResponse)
     }
     render() {
+        var divStyle = {textAlign: 'center'};
         return (
             <div className="login-main">
                 <div className="row">
                     <div className="col-sm-8">
                         <div className="jumbotron">
-                            <div className="verify">
+                            <div className="verify" style={divStyle}>
                                 <input name="pin" required="" type="number" placeholder="1234" onChange={(e) => { this.setState({ pin: e.target.value }) }} />
                                 <input type="button" value="Verify PIN" onClick={() => this.verify()} />
                             </div>

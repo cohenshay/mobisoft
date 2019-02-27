@@ -28,38 +28,38 @@ class SignIn extends React.Component {
   }
   render() {
     return (
-      <div className="login-main">
+      <div className="signIn">
         <div className="row">
           <div className="col-sm-8">
             <div className="jumbotron">
               <form id="my_form">
                 <div className="form-group">
                   <label >Email address</label>
-                  <input type="email" className="form-control" id="email" onChange={(e) => { this.setState({ email: e.target.value }) }} placeholder="Enter email" />
+                  <input type="email" className="form-control email" id="email" onChange={(e) => { this.setState({ email: e.target.value }) }} placeholder="cohenshay85@gmail.com" />
                 </div>
                 <div className="form-group">
                   <label >First Name</label>
-                  <input type="text" className="form-control" id="fname" onChange={(e) => { this.setState({ fname: e.target.value }) }} placeholder="Enter First Name" />
+                  <input type="text" className="form-control fname" id="fname" onChange={(e) => { this.setState({ fname: e.target.value }) }} placeholder="shay" />
                 </div>
                 <div className="form-group">
                   <label >Last Name</label>
-                  <input type="text" className="form-control" id="lname" onChange={(e) => { this.setState({ lname: e.target.value }) }} placeholder="Enter Last Name" />
+                  <input type="text" className="form-control lname" id="lname" onChange={(e) => { this.setState({ lname: e.target.value }) }} placeholder="cohen" />
                 </div>
                 <div className="form-group">
                   <label>Phone</label>
-                  <input type="text" className="form-control" id="phone" onChange={(e) => { this.setState({ phone: e.target.value }) }} placeholder="Enter Phone" />
+                  <input type="text" className="form-control phone" id="phone" onChange={(e) => { this.setState({ phone: e.target.value }) }} placeholder="972534296062" />
                 </div>
                 <div className="form-group">
                   <label>Address</label>
-                  <input type="text" className="form-control" id="address" onChange={(e) => { this.setState({ address: e.target.value }) }} placeholder="Enter Address" />
+                  <input type="text" className="form-control address" id="address" onChange={(e) => { this.setState({ address: e.target.value }) }} placeholder="hakesem 6" />
                 </div>
                 <div className="form-group">
                   <label>User Name</label>
-                  <input type="text" className="form-control" id="username" onChange={(e) => { this.setState({ username: e.target.value }) }} placeholder="Enter User Name" />
+                  <input type="text" className="form-control username" id="username" onChange={(e) => { this.setState({ username: e.target.value }) }} placeholder="cohenshay" />
                 </div>
                 <div className="form-group">
                   <label >Password</label>
-                  <input type="password" className="form-control" id="password" onChange={(e) => { this.setState({ password: e.target.value }) }} placeholder="Enter Password" />
+                  <input type="password" className="form-control password" id="password" onChange={(e) => { this.setState({ password: e.target.value }) }} placeholder="1234" />
                 </div>
                 <button type="button" onClick={() => { this.props.signIn({email: this.state.email,
                                                                          password: this.state.password,

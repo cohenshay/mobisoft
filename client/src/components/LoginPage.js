@@ -30,20 +30,24 @@ class LoginPage extends React.Component {
             <div className="jumbotron">
               <form id="my_form">
                 <div className="form-group">
-                  <label htmlFor="use rname">Email address</label>
-                  <input type="email" className="form-control" id="email" onChange={(e) => { this.setState({ email: e.target.value }) }} placeholder="Enter email" />
+                  <label >Email address</label>
+                  <input type="email" className="form-control email-input" id="email" onChange={(e) => { this.setState({ email: e.target.value }) }} placeholder="cohenshay85@gmail.com" />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input type="password" className="form-control" id="password" onChange={(e) => { this.setState({ password: e.target.value }) }} placeholder="Enter Password" />
+                  <label >Password</label>
+                  <input type="password" className="form-control password-input" id="password" onChange={(e) => { this.setState({ password: e.target.value }) }} placeholder="1234" />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Phone</label>
-                  <input type="text" className="form-control" id="phone" onChange={(e) => { this.setState({ phone: e.target.value }) }} placeholder="Enter phone" />
+                  <label >Phone</label>
+                  <input type="text" className="form-control phone-input" id="phone" onChange={(e) => { this.setState({ phone: e.target.value }) }} placeholder="972534296062" />
                 </div>
-                <button type="button" onClick={() => { this.props.login({ email: this.state.email,
-                                                                          password: this.state.password,
-                                                                          phone:this.state.phone }, this.checkResponse) }} className="btn btn-primary">Submit</button>
+                <button type="button" onClick={() => {
+                  this.props.login({
+                    email: this.state.email,
+                    password: this.state.password,
+                    phone: this.state.phone
+                  }, this.checkResponse)
+                }} className="btn btn-primary">Submit</button>
               </form>
               {this.state.authError && <div className="login-error">{`Login Error, status: ${this.state.authError.status}, message: ${this.state.authError.statusText}`}</div>}
             </div>

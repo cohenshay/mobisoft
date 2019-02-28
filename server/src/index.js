@@ -38,7 +38,7 @@ app.use(express.static(CLIENT_BUILD_PATH));
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/redis');
 app.use('/auth', authRouter);
-app.use('/api/products', productsRouter);
+app.use('/api/products',jwtAuthenticator, productsRouter);
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {

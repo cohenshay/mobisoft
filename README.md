@@ -4,7 +4,7 @@ Express + Create React App + Redis + Mongo + 2FA + JWT +  Docker Compose
 
 A project that runs a Node server and a create-react-app app via two separate containers, using Docker Compose.
 
-##Instructions
+## Instructions
 connect to localhost:3000/, create a user by clicking sign in. to test to 2fa you should logout and then login with the credetials you created
 by signing.
 
@@ -12,25 +12,39 @@ click you will be requested to enter your phone and then wait for about 2 minute
 
 you will be redirected to /products and then you can modify the orders table.
 
-##API - CLIENT
+## API - CLIENT
 
-localhost:3000/sign
-localhost:3000/login
-localhost:3000/verify
-localhost:3000/products
+localhost:3000/sign.
 
-##API - SERVER
+localhost:3000/login.
 
-localhost:8080/auth/signIn
-localhost:8080/auth/login
-localhost:8080/auth/verify
-localhost:8080/auth/sign
-localhost:8080/products/init
-localhost:8080/products/:id'
-localhost:8080/products/add
-localhost:8080/products/remove
-localhost:8080/products/update/:id
-localhost:8080/products/
+localhost:3000/verify.
+
+localhost:3000/products.
+
+
+## API - SERVER
+
+localhost:8080/auth/signIn.
+
+localhost:8080/auth/login.
+
+localhost:8080/auth/verify.
+
+localhost:8080/auth/sign.
+
+localhost:8080/products/init.
+
+localhost:8080/products/:id'.
+
+localhost:8080/products/add.
+
+localhost:8080/products/remove.
+
+localhost:8080/products/update/:id.
+
+localhost:8080/products/.
+
 
 
 
